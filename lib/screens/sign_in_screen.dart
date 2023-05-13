@@ -104,7 +104,11 @@ class SignInScreen extends StatelessWidget {
                       ),
                       Column(
                         children: [
-                          ButtonNext(onPressed: () {}, text: 'Iniciar sesión'),
+                          ButtonNext(
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/menu');
+                              },
+                              text: 'Iniciar sesión'),
                           const SizedBox(height: 10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,

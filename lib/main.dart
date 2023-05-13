@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rastreo_paquetes_app/screens/inicio_screen.dart';
+import 'package:rastreo_paquetes_app/screens/menu_screen.dart';
 import 'package:rastreo_paquetes_app/screens/sign_in_screen.dart';
 import 'package:rastreo_paquetes_app/screens/sign_up_screen.dart';
 import 'package:rastreo_paquetes_app/splash/splash_view.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         '/inicio': (context) => const InicioScreen(),
         '/signin': (context) => const SignInScreen(),
         '/signup': (context) => const SignUpScreen(),
+        '/menu' : (context) => const MenuScreen(),
       },
     );
   }
