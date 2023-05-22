@@ -15,6 +15,7 @@ class _MenuScreenState extends State<MenuScreen> {
   int activeScroll = 0;
   final PageController _pageController = PageController(initialPage: 0);
   int activePage = 0;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -32,11 +33,36 @@ class _MenuScreenState extends State<MenuScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
         centerTitle: true,
         title: Image.asset('assets/logo.png', height: 100),
+        automaticallyImplyLeading: false,
+      ),
+      drawer: Drawer(
+        width: MediaQuery.of(context).size.width * .6,
+        child: SafeArea(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              ListTile(
+                title: const Text(
+                  'Cerrar sesion',
+                  style: TextStyle(
+                    color: ColorSelect.kBlack,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.pushNamed(context, '/signin');
+                },
+              ),
+            ],
+          ),
+        ),
       ),
       body: SafeArea(
         child: Column(
@@ -48,7 +74,9 @@ class _MenuScreenState extends State<MenuScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _scaffoldKey.currentState?.openDrawer();
+                    },
                     icon: const Icon(Icons.menu, color: Colors.black, size: 30),
                   ),
                   const Text(
@@ -57,8 +85,8 @@ class _MenuScreenState extends State<MenuScreen> {
                   ),
                   IconButton(
                     onPressed: () {},
-                    icon:
-                        const Icon(Icons.search, color: Colors.black, size: 30),
+                    icon: const Icon(Icons.search,
+                        color: Colors.transparent, size: 30),
                   ),
                 ],
               ),
