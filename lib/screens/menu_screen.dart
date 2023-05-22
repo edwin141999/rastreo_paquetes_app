@@ -40,6 +40,7 @@ class _MenuScreenState extends State<MenuScreen> {
       ),
       body: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -125,10 +126,9 @@ class _MenuScreenState extends State<MenuScreen> {
                 },
               ),
             ),
-            Container(
+            SizedBox(
               width: double.infinity,
-              height: MediaQuery.of(context).size.height * .65,
-              margin: const EdgeInsets.only(top: 20),
+              height: MediaQuery.of(context).size.height * .62,
               child: PageView.builder(
                 physics: const BouncingScrollPhysics(),
                 itemCount: categories.length,
@@ -144,12 +144,13 @@ class _MenuScreenState extends State<MenuScreen> {
                   return ListView.separated(
                     itemCount: 10,
                     separatorBuilder: (context, index) {
-                      return const SizedBox(height: 50);
+                      return const SizedBox(height: 30);
                     },
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, snapshot) {
                       return Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 30),
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 30, vertical: 10),
                         height: 80,
                         decoration: BoxDecoration(
                           color: activePage == index &&
@@ -216,6 +217,15 @@ class _MenuScreenState extends State<MenuScreen> {
                     },
                   );
                 },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: FloatingActionButton(
+                onPressed: (() => {}),
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                child: const Icon(Icons.add, color: Colors.black, size: 50),
               ),
             )
           ],
