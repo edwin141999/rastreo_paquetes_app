@@ -219,17 +219,14 @@ class _MenuScreenState extends State<MenuScreen> {
                 },
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: FloatingActionButton(
-                onPressed: (() => {}),
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-                child: const Icon(Icons.add, color: Colors.black, size: 50),
-              ),
-            )
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        child: const Icon(Icons.add, color: ColorSelect.kBlack, size: 40),
       ),
     );
   }
