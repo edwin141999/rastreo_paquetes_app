@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rastreo_paquetes_app/styles/colors/colors.view.dart';
+import 'package:rastreo_paquetes_app/widgets/logo_bar.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({Key? key}) : super(key: key);
@@ -34,13 +35,7 @@ class _MenuScreenState extends State<MenuScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        centerTitle: true,
-        title: Image.asset('assets/logo.png', height: 100),
-        automaticallyImplyLeading: false,
-      ),
+      appBar: const LogoBar(),
       drawer: Drawer(
         width: MediaQuery.of(context).size.width * .6,
         child: SafeArea(
@@ -176,70 +171,76 @@ class _MenuScreenState extends State<MenuScreen> {
                     },
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, snapshot) {
-                      return Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 30, vertical: 10),
-                        height: 80,
-                        decoration: BoxDecoration(
-                          color: activePage == index &&
-                                  categories[index] == 'Actual'
-                              ? ColorSelect.kColorPrimary
-                              : activePage == index &&
-                                      categories[index] == 'Pasado'
-                                  ? ColorSelect.kColorSecondary
-                                  : Colors.transparent,
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        child: Row(
-                          children: [
-                            const SizedBox(width: 20),
-                            Icon(
-                              activePage == index &&
-                                      categories[index] == 'Actual'
-                                  ? Icons.watch_later
-                                  : activePage == index &&
-                                          categories[index] == 'Pasado'
-                                      ? Icons.done
-                                      : Icons.done,
-                              color: Colors.white,
-                              size: 30,
-                            ),
-                            const SizedBox(width: 20),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text(
-                                  'Mercado Libre',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
+                      return GestureDetector(
+                        onTap: () =>
+                            activePage == index && categories[index] == 'Actual'
+                                ? Navigator.pushNamed(context, '/map')
+                                : null,
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 10),
+                          height: 80,
+                          decoration: BoxDecoration(
+                            color: activePage == index &&
+                                    categories[index] == 'Actual'
+                                ? ColorSelect.kColorPrimary
+                                : activePage == index &&
+                                        categories[index] == 'Pasado'
+                                    ? ColorSelect.kColorSecondary
+                                    : Colors.transparent,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: Row(
+                            children: [
+                              const SizedBox(width: 20),
+                              Icon(
+                                activePage == index &&
+                                        categories[index] == 'Actual'
+                                    ? Icons.watch_later
+                                    : activePage == index &&
+                                            categories[index] == 'Pasado'
+                                        ? Icons.done
+                                        : Icons.done,
+                                color: Colors.white,
+                                size: 30,
+                              ),
+                              const SizedBox(width: 20),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Text(
+                                    'Mercado Libre',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                ),
-                                const Text(
-                                  'FedEx',
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.white,
+                                  const Text(
+                                    'FedEx',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.white,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  activePage == index &&
-                                          categories[index] == 'Actual'
-                                      ? 'Esperando actualizaciones del operador'
-                                      : activePage == index &&
-                                              categories[index] == 'Pasado'
-                                          ? 'Entregado el 12/05/23  a las 02:00 pm'
-                                          : 'Entregado el 12/05/23  a las 02:00 pm',
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w400,
+                                  Text(
+                                    activePage == index &&
+                                            categories[index] == 'Actual'
+                                        ? 'Esperando actualizaciones del operador'
+                                        : activePage == index &&
+                                                categories[index] == 'Pasado'
+                                            ? 'Entregado el 12/05/23  a las 02:00 pm'
+                                            : 'Entregado el 12/05/23  a las 02:00 pm',
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            )
-                          ],
+                                ],
+                              )
+                            ],
+                          ),
                         ),
                       );
                     },
