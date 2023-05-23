@@ -4,6 +4,9 @@
         android:label="rastreo_paquetes_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyAMWTK9mOU-lmtyYUGaaIYPXS_VD9M9drI"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"

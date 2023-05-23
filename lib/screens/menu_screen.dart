@@ -170,6 +170,7 @@ class _MenuScreenState extends State<MenuScreen> {
                       return const SizedBox(height: 30);
                     },
                     scrollDirection: Axis.vertical,
+                    physics: const BouncingScrollPhysics(),
                     itemBuilder: (context, snapshot) {
                       return GestureDetector(
                         onTap: () =>

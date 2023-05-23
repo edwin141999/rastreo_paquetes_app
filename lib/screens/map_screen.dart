@@ -1,10 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:rastreo_paquetes_app/styles/colors/colors.view.dart';
 import 'package:rastreo_paquetes_app/styles/fonts/fonts_view.dart';
 import 'package:rastreo_paquetes_app/widgets/logo_bar.dart';
 
-class MapScreen extends StatelessWidget {
+class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
+
+  @override
+  State<MapScreen> createState() => _MapScreenState();
+}
+
+class _MapScreenState extends State<MapScreen> {
+  late GoogleMapController mapController;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,16 +31,22 @@ class MapScreen extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-              flex: 2,
-              child: Container(
-                decoration: const BoxDecoration(color: Colors.blue),
+              flex: 3,
+              child: GoogleMap(
+                onMapCreated: _onMapCreated,
+                initialCameraPosition: const CameraPosition(
+                  target: LatLng(16.75688035617092, -93.17230778400948),
+                  zoom: 16.8,
+                ),
+                zoomGesturesEnabled: false,
+                zoomControlsEnabled: false,
+                scrollGesturesEnabled: false,
               ),
             ),
             Expanded(
               flex: 2,
               child: Column(
                 children: [
-                  const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -52,7 +75,7 @@ class MapScreen extends StatelessWidget {
                     ],
                   ),
                   const Divider(color: Colors.black, thickness: 2),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 10),
                   SizedBox(
                     height: 90,
                     width: MediaQuery.of(context).size.width * .8,
@@ -73,7 +96,7 @@ class MapScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 10),
                   OutlinedButton(
                     onPressed: () {
                       Navigator.pop(context);
