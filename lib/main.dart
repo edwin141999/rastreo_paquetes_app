@@ -1,11 +1,15 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:rastreo_paquetes_app/firebase_options.dart';
 import 'package:rastreo_paquetes_app/screens/inicio_screen.dart';
 import 'package:rastreo_paquetes_app/screens/menu_screen.dart';
 import 'package:rastreo_paquetes_app/screens/sign_in_screen.dart';
 import 'package:rastreo_paquetes_app/screens/sign_up_screen.dart';
 import 'package:rastreo_paquetes_app/splash/splash_view.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -23,7 +27,7 @@ class MyApp extends StatelessWidget {
         '/inicio': (context) => const InicioScreen(),
         '/signin': (context) => const SignInScreen(),
         '/signup': (context) => const SignUpScreen(),
-        '/menu' : (context) => const MenuScreen(),
+        '/menu': (context) => const MenuScreen(),
       },
     );
   }

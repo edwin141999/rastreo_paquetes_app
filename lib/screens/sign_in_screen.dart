@@ -1,23 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:rastreo_paquetes_app/services/email_sign_in.dart';
 import 'package:rastreo_paquetes_app/styles/colors/colors.view.dart';
 import 'package:rastreo_paquetes_app/styles/fonts/fonts_view.dart';
 import 'package:rastreo_paquetes_app/widgets/button_next.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
   const SignInScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  Future<void> _login() async {
+    EmailSigninService()
+        .signInUserWithEmailAndPassword(
+            _emailController.text.trim(), _passwordController.text.trim())
+        .then(
+          (value) => value == true
+              ? Future.delayed(
+                  const Duration(seconds: 2),
+                  () => Navigator.pushNamed(context, '/menu'),
+                )
+              : showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text('Error'),
+                    content: const Text(
+                      'Usuario o contraseña incorrectos,intente de nuevo',
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text('Ok'),
+                      ),
+                    ],
+                  ),
+                ),
+        );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/background.png'),
-            fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('assets/background.png'), fit: BoxFit.cover),
           ),
-        ),
-        child: SingleChildScrollView(
           child: Container(
             height: MediaQuery.of(context).size.height,
             decoration: BoxDecoration(
@@ -61,8 +96,10 @@ class SignInScreen extends StatelessWidget {
                         children: [
                           SizedBox(
                             width: MediaQuery.of(context).size.width * .5,
-                            child: const TextField(
-                              decoration: InputDecoration(
+                            child: TextField(
+                              controller: _emailController,
+                              keyboardType: TextInputType.emailAddress,
+                              decoration: const InputDecoration(
                                 hintStyle: FontSelect.k16Black,
                                 border: UnderlineInputBorder(),
                                 labelText: 'Correo electrónico',
@@ -82,8 +119,11 @@ class SignInScreen extends StatelessWidget {
                           const SizedBox(height: 10),
                           SizedBox(
                             width: MediaQuery.of(context).size.width * .5,
-                            child: const TextField(
-                              decoration: InputDecoration(
+                            child: TextField(
+                              controller: _passwordController,
+                              keyboardType: TextInputType.visiblePassword,
+                              obscureText: true,
+                              decoration: const InputDecoration(
                                 hintStyle: FontSelect.k16Black,
                                 border: UnderlineInputBorder(),
                                 labelText: 'Contraseña',
@@ -104,11 +144,7 @@ class SignInScreen extends StatelessWidget {
                       ),
                       Column(
                         children: [
-                          ButtonNext(
-                              onPressed: () {
-                                Navigator.pushNamed(context, '/menu');
-                              },
-                              text: 'Iniciar sesión'),
+                          ButtonNext(onPressed: _login, text: 'Iniciar sesión'),
                           const SizedBox(height: 10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,

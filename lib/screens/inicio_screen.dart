@@ -1,10 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:rastreo_paquetes_app/services/email_sign_in.dart';
 import 'package:rastreo_paquetes_app/styles/colors/colors.view.dart';
 import 'package:rastreo_paquetes_app/styles/fonts/fonts_view.dart';
 import 'package:rastreo_paquetes_app/widgets/button_next.dart';
 
-class InicioScreen extends StatelessWidget {
+class InicioScreen extends StatefulWidget {
   const InicioScreen({Key? key}) : super(key: key);
+
+  @override
+  State<InicioScreen> createState() => _InicioScreenState();
+}
+
+class _InicioScreenState extends State<InicioScreen> {
+  Future<void> _signOut() async {
+    await EmailSigninService().signOutUser().then(
+          (value) => value == true
+              ? Future.delayed(
+                  const Duration(seconds: 2),
+                  () => Navigator.pushNamed(context, '/signin'),
+                )
+              : showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text('Error'),
+                    content: const Text('Error al cerrar sesión'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text('Ok'),
+                      ),
+                    ],
+                  ),
+                ),
+        );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +67,7 @@ class InicioScreen extends StatelessWidget {
               ),
               Column(
                 children: [
-                  ButtonNext(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/signin');
-                    },
-                    text: 'Iniciar sesión',
-                  ),
+                  ButtonNext(onPressed: _signOut, text: 'Iniciar sesión'),
                   const SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

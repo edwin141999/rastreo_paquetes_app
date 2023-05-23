@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "333103814683",
+    "project_id": "ubitec-app",
+    "storage_bucket": "ubitec-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:333103814683:android:e28f72febb4c39c93fc0be",
+        "android_client_info": {
+          "package_name": "com.example.rastreo_paquetes_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "333103814683-7bug6icftjkubrhlacsdph79o8jognkf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCWYkNR5n5d8R2j7XoPoMpCzEHZ1AEksY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "333103814683-7bug6icftjkubrhlacsdph79o8jognkf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

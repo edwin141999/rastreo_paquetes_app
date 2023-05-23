@@ -15,6 +15,11 @@ class _SplashViewState extends State<SplashView> {
     _toOnboarding();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   _toOnboarding() async {
     await Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacementNamed(context, '/inicio');
