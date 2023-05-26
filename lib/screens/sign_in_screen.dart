@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rastreo_paquetes_app/services/email_sign_in.dart';
+import 'package:rastreo_paquetes_app/services/conn_arduino.dart';
 import 'package:rastreo_paquetes_app/styles/colors/colors.view.dart';
 import 'package:rastreo_paquetes_app/styles/fonts/fonts_view.dart';
 import 'package:rastreo_paquetes_app/widgets/button_next.dart';
@@ -16,31 +16,37 @@ class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _passwordController = TextEditingController();
 
   Future<void> _login() async {
-    EmailSigninService()
-        .signInUserWithEmailAndPassword(
-            _emailController.text.trim(), _passwordController.text.trim())
-        .then(
-          (value) => value == true
-              ? Future.delayed(
-                  const Duration(seconds: 2),
-                  () => Navigator.pushNamed(context, '/menu'),
-                )
-              : showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: const Text('Error'),
-                    content: const Text(
-                      'Usuario o contraseña incorrectos,intente de nuevo',
-                    ),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(context),
-                        child: const Text('Ok'),
-                      ),
-                    ],
-                  ),
-                ),
-        );
+    ConnArduino().onPressedConnectArduino();
+    // EmailSigninService()
+    //     .signInUserWithEmailAndPassword(
+    //         _emailController.text.trim(), _passwordController.text.trim())
+    //     .then(
+    //       (value) => value == true
+    //           ? Future.delayed(
+    //               const Duration(seconds: 2),
+    //               () => Navigator.pushNamed(context, '/menu'),
+    //             )
+    //           : showDialog(
+    //               context: context,
+    //               builder: (context) => AlertDialog(
+    //                 title: const Text('Error'),
+    //                 content: const Text(
+    //                   'Usuario o contraseña incorrectos,intente de nuevo',
+    //                 ),
+    //                 actions: [
+    //                   TextButton(
+    //                     onPressed: () => Navigator.pop(context),
+    //                     child: const Text('Ok'),
+    //                   ),
+    //                 ],
+    //               ),
+    //             ),
+    //     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
